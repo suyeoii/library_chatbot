@@ -103,7 +103,7 @@ def initialize_components(selected_model):
     return rag_chain
 
 # Streamlit UI
-st.header(" Q&A 챗봇 💬 📚")
+st.header("RAG와 AI을 기반으로 한 물리 정보 교과 융합 학습 지원 챗봇 💬 📚")
 option = st.selectbox("Select GPT Model", ("gpt-4o-mini", "gpt-3.5-turbo-0125"))
 rag_chain = initialize_components(option)
 chat_history = StreamlitChatMessageHistory(key="chat_messages")
@@ -119,7 +119,7 @@ conversational_rag_chain = RunnableWithMessageHistory(
 
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", 
-                                     "content": "국립부경대 도서관 규정에 대해 무엇이든 물어보세요!"}]
+                                     "content": "물리와 정보 교과과에 대해 무엇이든 물어보세요!"}]
 
 for msg in chat_history.messages:
     st.chat_message(msg.type).write(msg.content)
@@ -139,4 +139,5 @@ if prompt_message := st.chat_input("Your question"):
             with st.expander("참고 문서 확인"):
                 for doc in response['context']:
                     st.markdown(doc.metadata['source'], help=doc.page_content)
+
 
